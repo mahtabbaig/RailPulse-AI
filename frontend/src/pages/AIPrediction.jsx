@@ -56,7 +56,18 @@ export default function AIPrediction() {
           {eta?.train || "Loading..."}
         </h2>
 
-        <div className="mt-6 grid sm:grid-cols-3 gap-4">
+        <div className="mt-6 grid sm:grid-cols-4 gap-4">
+          <div className="rounded-lg border border-[#16233A] bg-[#101F35] p-5">
+  <Clock className="w-5 h-5 text-[#2FE0C7]" />
+
+  <p className="mt-3 text-xs text-[#5C6E88]">
+    SCHEDULED ARRIVAL
+  </p>
+
+  <p className="mt-1 text-2xl font-semibold">
+    {eta?.scheduled_arrival || "--"}
+  </p>
+</div>
 
           <div className="rounded-lg border border-[#16233A] bg-[#101F35] p-5">
             <Clock className="w-5 h-5 text-[#2FE0C7]" />
