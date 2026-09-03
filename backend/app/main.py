@@ -63,6 +63,35 @@ train_routes = {
         ],
         "scheduled_minutes": 8 * 60 + 15
     },
+    "12850": {
+        "name": "Alternative Express",
+        "source": "Bengaluru",
+        "destination": "New Delhi",
+        "stations": [
+            "Bengaluru",
+            "Secunderabad",
+            "Nagpur",
+            "Bhopal",
+            "Agra",
+            "New Delhi"
+    ],
+    "scheduled_minutes": 9 * 60 + 0
+    },
+
+    "22692": {
+        "name": "Superfast Express",
+        "source": "Bengaluru",
+        "destination": "New Delhi",
+        "stations": [
+            "Bengaluru",
+            "Secunderabad",
+            "Nagpur",
+            "Bhopal",
+            "Agra",
+            "New Delhi"
+    ],
+    "scheduled_minutes": 9 * 60 + 30
+},
 
     "12007": {
         "name": "Shatabdi Express",
@@ -91,6 +120,19 @@ train_routes = {
         ],
         "scheduled_minutes": 6 * 60 + 10
     },
+    "12009": {
+    "name": "Demo Shatabdi Express",
+    "source": "Mysuru",
+    "destination": "Chennai",
+    "stations": [
+        "Mysuru",
+        "Mandya",
+        "Bengaluru",
+        "Katpadi",
+        "Chennai"
+    ],
+    "scheduled_minutes": 6 * 60 + 30
+},
 
     "12649": {
         "name": "Karnataka Sampark Kranti",
@@ -151,6 +193,20 @@ train_routes = {
         ],
         "scheduled_minutes": 7 * 60 + 20
     },
+    "16517": {
+    "name": "Demo Karwar Express",
+    "source": "Karwar",
+    "destination": "KSR Bengaluru",
+    "stations": [
+        "Karwar",
+        "Mangaluru",
+        "Shivamogga",
+        "Arsikere",
+        "Tumakuru",
+        "KSR Bengaluru"
+    ],
+    "scheduled_minutes": 7 * 60 + 40
+},
 
     "16525": {
         "name": "Kanyakumari Express",
@@ -193,16 +249,30 @@ train_states = {
     "12627": {
         "speed": 52,
         "progress": 35,
-        "delay": 17,
+        "delay": 9,
         "last_update": time.time()
     },
 
     "12628": {
         "speed": 90,
         "progress": 37,
-        "delay": 4,
+        "delay": 25,
         "last_update": time.time()
     },
+    "12850": {
+    "speed": 85,
+    "progress": 45,
+    "delay": 5,
+    "last_update": time.time()
+},
+
+"22692": {
+    "speed": 95,
+    "progress": 50,
+    "delay": 8,
+    "last_update": time.time()
+},
+
 
     "12007": {
         "speed": 70,
@@ -214,9 +284,15 @@ train_states = {
     "12008": {
         "speed": 82,
         "progress": 48,
-        "delay": 3,
+        "delay": 30,
         "last_update": time.time()
     },
+    "12009": {
+    "speed": 90,
+    "progress": 45,
+    "delay": 5,
+    "last_update": time.time()
+},
 
     "12649": {
         "speed": 61,
@@ -242,9 +318,15 @@ train_states = {
     "16516": {
         "speed": 76,
         "progress": 59,
-        "delay": 5,
+        "delay": 35,
         "last_update": time.time()
     },
+    "16517": {
+    "speed": 88,
+    "progress": 55,
+    "delay": 4,
+    "last_update": time.time()
+},
 
     "16525": {
         "speed": 54,
@@ -461,7 +543,46 @@ def get_eta(train_number: str = "12627"):
     # --------------------------------------------------
     # Return response
     # --------------------------------------------------
+    # --------------------------------------------------
+# Find alternative trains
+# --------------------------------------------------
 
+    # --------------------------------------------------
+# Find alternative trains
+# --------------------------------------------------
+
+    alternatives = []
+
+    if delay > 20:
+
+        for number, alternative in train_routes.items():
+
+            if number == train_number:
+                continue
+
+            if (
+                alternative["source"] == train["source"]
+                and alternative["destination"] == train["destination"]
+        ):
+
+                alternative_state = train_states.get(number)
+
+                if alternative_state is not None:
+
+                    if alternative_state["delay"] < delay:
+
+                        alternatives.append({
+                        "train_number": number,
+                        "train": f"{number} {alternative['name']}",
+                        "source": alternative["source"],
+                        "destination": alternative["destination"],
+                        "delay_minutes": alternative_state["delay"],
+                        "scheduled_arrival": (
+                            f"{(alternative['scheduled_minutes'] // 60) % 12 or 12:02d}:"
+                            f"{alternative['scheduled_minutes'] % 60:02d} "
+                            f"{'AM' if alternative['scheduled_minutes'] // 60 < 12 else 'PM'}"
+                        )
+                    })
     return {
         "train_number": train_number,
 
@@ -470,6 +591,7 @@ def get_eta(train_number: str = "12627"):
         "source": train["source"],
 
         "destination": train["destination"],
+        "alternatives": alternatives,
 
         "stations": train["stations"],
         "current_station": current_station,

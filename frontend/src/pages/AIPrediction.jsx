@@ -120,7 +120,91 @@ export default function AIPrediction() {
           </div>
 
         </div>
+                {/* SMART ALTERNATIVE RECOMMENDATION */}
 
+        {eta?.alternatives?.length > 0 && (
+          <div className="mt-8 rounded-lg border border-[#16233A] bg-[#101F35] p-5">
+
+            <p className="text-xs text-[#5C6E88]">
+              ⚡ SMART ALTERNATIVE RECOMMENDATION
+            </p>
+
+            <p className="mt-1 text-lg font-semibold">
+              Better options for your journey
+            </p>
+
+            <p className="mt-2 text-sm text-[#8FA3C0]">
+              Your selected train has a high delay. RailPulse AI found
+              alternative trains with lower predicted delays.
+            </p>
+
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              {eta.alternatives.map((alternative) => (
+
+                <div
+                  key={alternative.train_number}
+                  className="rounded-lg border border-[#16233A] bg-[#0B1526] p-5"
+                >
+
+                  <p className="text-xs text-[#5C6E88]">
+                    ALTERNATIVE TRAIN
+                  </p>
+
+                  <p className="mt-2 text-lg font-semibold">
+                    {alternative.train}
+                  </p>
+
+                  <p className="mt-2 text-sm text-[#8FA3C0]">
+                    {alternative.source} → {alternative.destination}
+                  </p>
+
+                  <div className="mt-4 flex items-center justify-between">
+
+                    <div>
+                      <p className="text-xs text-[#5C6E88]">
+                        DELAY
+                      </p>
+
+                      <p className="mt-1 text-lg font-semibold text-green-400">
+                        {alternative.delay_minutes} min
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs text-[#5C6E88]">
+                        SCHEDULED
+                      </p>
+
+                      <p className="mt-1 text-lg font-semibold">
+                        {alternative.scheduled_arrival}
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      sessionStorage.setItem(
+                        "selectedTrain",
+                        alternative.train_number
+                      );
+
+                      window.location.href = "/tracking";
+                    }}
+                    className="mt-5 w-full rounded-lg border border-[#2FE0C7]/30 bg-[#2FE0C7]/10 px-4 py-3 text-sm font-medium text-[#2FE0C7] transition hover:bg-[#2FE0C7]/20"
+                  >
+                    Track Train →
+                  </button>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          </div>
+        )}
         <div className="mt-8 rounded-lg border border-[#16233A] bg-[#101F35] p-5">
 
          <div className="flex items-center justify-between">
