@@ -5,6 +5,7 @@ import { getETA } from "../services/api";
 export default function AIPrediction() {
   const [eta, setEta] = useState(null);
 
+  
   useEffect(() => {
   const loadETA = async () => {
     const selectedTrain = sessionStorage.getItem("selectedTrain");
@@ -16,8 +17,48 @@ export default function AIPrediction() {
     }
 
     try {
+      const parentTrain = sessionStorage.getItem("alternativeParentTrain");
+
+      // --------------------------------------------------
+      // ALTERNATIVE TRAIN
+      // --------------------------------------------------
+      if (parentTrain && parentTrain !== selectedTrain) {
+
+        // Get the MAIN train data
+        const parentData = await getETA(parentTrain);
+
+        // Find the selected alternative
+        const alternativeData = parentData.alternatives?.find(
+          (alternative) =>
+            alternative.train_number === selectedTrain
+        );
+
+        if (alternativeData) {
+
+          // Get alternative train's live data
+          const actualAlternativeData = await getETA(selectedTrain);
+
+          // Use MAIN train reference time,
+          // but alternative train's delay/live information
+          const combinedData = {
+            ...actualAlternativeData,
+
+            scheduled_arrival: alternativeData.scheduled_arrival,
+            predicted_arrival: alternativeData.predicted_arrival,
+            delay_minutes: alternativeData.delay_minutes,
+          };
+
+          setEta(combinedData);
+          return;
+        }
+      }
+
+      // --------------------------------------------------
+      // NORMAL TRAIN
+      // --------------------------------------------------
       const data = await getETA(selectedTrain);
       setEta(data);
+
     } catch (error) {
       console.error("Failed to load ETA:", error);
       setEta(null);
@@ -184,19 +225,25 @@ export default function AIPrediction() {
                   </div>
 
                   <button
-                    onClick={() => {
-                      sessionStorage.setItem(
-                        "selectedTrain",
-                        alternative.train_number
-                      );
+  onClick={() => {
+    // Remember which main train this alternative belongs to
+    sessionStorage.setItem(
+      "alternativeParentTrain",
+      sessionStorage.getItem("selectedTrain")
+    );
 
-                      window.location.href = "/tracking";
-                    }}
-                    className="mt-5 w-full rounded-lg border border-[#2FE0C7]/30 bg-[#2FE0C7]/10 px-4 py-3 text-sm font-medium text-[#2FE0C7] transition hover:bg-[#2FE0C7]/20"
-                  >
-                    Track Train →
-                  </button>
+    // Track the alternative train
+    sessionStorage.setItem(
+      "selectedTrain",
+      alternative.train_number
+    );
 
+    window.location.href = "/tracking";
+  }}
+  className="mt-5 w-full rounded-lg border border-[#2FE0C7]/30 bg-[#2FE0C7]/10 px-4 py-3 text-sm font-medium text-[#2FE0C7] transition hover:bg-[#2FE0C7]/20"
+>
+  Track Train →
+</button>
                 </div>
 
               ))}

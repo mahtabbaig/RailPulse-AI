@@ -238,6 +238,15 @@ train_routes = {
         "scheduled_minutes": 8 * 60 + 40
     }
 }
+# --------------------------------------------------
+# Alternative Train Mapping
+# --------------------------------------------------
+
+alternative_groups = {
+    "12628": ["12850", "22692"],
+    "12008": ["12009"],
+    "16516": ["16517"]
+}
 
 
 # --------------------------------------------------
@@ -551,38 +560,64 @@ def get_eta(train_number: str = "12627"):
 # Find alternative trains
 # --------------------------------------------------
 
+    # --------------------------------------------------
+# Find alternative trains
+# --------------------------------------------------
+
+    # --------------------------------------------------
+# Find alternative trains
+# --------------------------------------------------
+
     alternatives = []
 
-    if delay > 20:
+# Check whether this train has alternatives
+    if train_number in alternative_groups and delay > 20:
 
-        for number, alternative in train_routes.items():
+        for number in alternative_groups[train_number]:
 
-            if number == train_number:
-                continue
+            alternative = train_routes[number]
+            alternative_state = train_states.get(number)
 
-            if (
-                alternative["source"] == train["source"]
-                and alternative["destination"] == train["destination"]
-        ):
+            if alternative_state is not None:
 
-                alternative_state = train_states.get(number)
+                alternative_delay = alternative_state["delay"]
 
-                if alternative_state is not None:
+            # Only show alternatives with lower delay
+                if alternative_delay < delay:
 
-                    if alternative_state["delay"] < delay:
+                # SAME scheduled time as main train
+                    alternative_scheduled_minutes = scheduled_minutes
 
-                        alternatives.append({
+                # Predicted time based on alternative's lower delay
+                    alternative_predicted_minutes = (
+                    alternative_scheduled_minutes + alternative_delay
+                )
+
+                    alt_hours = alternative_predicted_minutes // 60
+                    alt_minutes = alternative_predicted_minutes % 60
+
+                    alternatives.append({
                         "train_number": number,
                         "train": f"{number} {alternative['name']}",
                         "source": alternative["source"],
                         "destination": alternative["destination"],
-                        "delay_minutes": alternative_state["delay"],
-                        "scheduled_arrival": (
-                            f"{(alternative['scheduled_minutes'] // 60) % 12 or 12:02d}:"
-                            f"{alternative['scheduled_minutes'] % 60:02d} "
-                            f"{'AM' if alternative['scheduled_minutes'] // 60 < 12 else 'PM'}"
-                        )
-                    })
+
+                    # Same scheduled time as main train
+                    "scheduled_arrival": (
+                        f"{(alternative_scheduled_minutes // 60) % 12 or 12:02d}:"
+                        f"{alternative_scheduled_minutes % 60:02d} "
+                        f"{'AM' if alternative_scheduled_minutes // 60 < 12 else 'PM'}"
+                    ),
+
+                    # Alternative predicted time
+                    "predicted_arrival": (
+                        f"{alt_hours % 12 or 12:02d}:"
+                        f"{alt_minutes:02d} "
+                        f"{'AM' if alt_hours < 12 else 'PM'}"
+                    ),
+
+                    "delay_minutes": alternative_delay
+                })
     return {
         "train_number": train_number,
 

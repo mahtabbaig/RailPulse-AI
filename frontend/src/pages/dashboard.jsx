@@ -15,34 +15,81 @@ export default function Dashboard() {
 
   useEffect(() => {
   const loadETA = async () => {
-    const selectedTrain = sessionStorage.getItem("selectedTrain");
+  const selectedTrain = sessionStorage.getItem("selectedTrain");
 
-    // No train selected
-    if (!selectedTrain) {
-      setEta(null);
-      return;
+  // No train selected
+  if (!selectedTrain) {
+    setEta(null);
+    return;
+  }
+
+  try {
+    const parentTrain = sessionStorage.getItem("alternativeParentTrain");
+
+    // If selected train is an alternative train
+    if (parentTrain && parentTrain !== selectedTrain) {
+
+      // Get main train data
+      const parentData = await getETA(parentTrain);
+
+      // Find selected alternative
+      const alternativeData = parentData.alternatives?.find(
+        (alternative) =>
+          alternative.train_number === selectedTrain
+      );
+
+      if (alternativeData) {
+
+        // Get alternative's live information
+        const actualAlternativeData = await getETA(selectedTrain);
+
+        // Combine correct alternative ETA with live data
+        const data = {
+          ...actualAlternativeData,
+
+          scheduled_arrival: alternativeData.scheduled_arrival,
+          predicted_arrival: alternativeData.predicted_arrival,
+          delay_minutes: alternativeData.delay_minutes,
+        };
+
+        setEta(data);
+
+        setEtaHistory((prev) => {
+          const newItem = {
+            time: new Date().toLocaleTimeString(),
+            eta: data.predicted_arrival,
+            delay: data.delay_minutes,
+            confidence: data.confidence,
+          };
+
+          return [newItem, ...prev].slice(0, 6);
+        });
+
+        return;
+      }
     }
 
-    try {
-     const data = await getETA(selectedTrain);
+    // Normal train
+    const data = await getETA(selectedTrain);
 
-setEta(data);
+    setEta(data);
 
-setEtaHistory((prev) => {
-  const newItem = {
-    time: new Date().toLocaleTimeString(),
-    eta: data.predicted_arrival,
-    delay: data.delay_minutes,
-    confidence: data.confidence,
-  };
+    setEtaHistory((prev) => {
+      const newItem = {
+        time: new Date().toLocaleTimeString(),
+        eta: data.predicted_arrival,
+        delay: data.delay_minutes,
+        confidence: data.confidence,
+      };
 
-  return [newItem, ...prev].slice(0, 6);
-});
-    } catch (error) {
-      console.error("Failed to load ETA:", error);
-      setEta(null);
-    }
-  };
+      return [newItem, ...prev].slice(0, 6);
+    });
+
+  } catch (error) {
+    console.error("Failed to load ETA:", error);
+    setEta(null);
+  }
+};
 
   loadETA();
 

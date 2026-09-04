@@ -20,26 +20,72 @@ export default function Tracking() {
   const [lastUpdated, setLastUpdated] = useState(null);
 
   // Load train data
-  const loadETA = async (trainNumber) => {
-    if (!trainNumber) return;
+  // Load train data
+const loadETA = async (trainNumber) => {
+  if (!trainNumber) return;
 
-    try {
-      const data = await getETA(trainNumber);
+  try {
+    const parentTrain = sessionStorage.getItem("alternativeParentTrain");
 
-      if (data.error) {
+    // If this is an alternative train,
+    // get the main train data first
+    if (parentTrain && parentTrain !== trainNumber) {
+
+      const parentData = await getETA(parentTrain);
+
+      if (parentData.error) {
         setEta(null);
-        setSearchError("Train not found. Please enter a valid train number.");
+        setSearchError("Unable to load main train information.");
         return;
       }
 
-      setEta(data);
-      setLastUpdated(new Date().toLocaleTimeString());
-      setSearchError("");
-    } catch (error) {
-      console.error("Tracking error:", error);
-      setSearchError("Unable to connect to RailPulse AI server.");
+      // Find the selected alternative inside main train alternatives
+      const alternativeData = parentData.alternatives?.find(
+        (alternative) =>
+          alternative.train_number === trainNumber
+      );
+
+      if (alternativeData) {
+
+        // Get alternative train's live data
+        const actualAlternativeData = await getETA(trainNumber);
+
+        // Combine:
+        // - correct reference time from main train
+        // - alternative's live data
+        const combinedData = {
+          ...actualAlternativeData,
+
+          scheduled_arrival: alternativeData.scheduled_arrival,
+          predicted_arrival: alternativeData.predicted_arrival,
+          delay_minutes: alternativeData.delay_minutes,
+        };
+
+        setEta(combinedData);
+        setLastUpdated(new Date().toLocaleTimeString());
+        setSearchError("");
+        return;
+      }
     }
-  };
+
+    // Normal train tracking
+    const data = await getETA(trainNumber);
+
+    if (data.error) {
+      setEta(null);
+      setSearchError("Train not found. Please enter a valid train number.");
+      return;
+    }
+
+    setEta(data);
+    setLastUpdated(new Date().toLocaleTimeString());
+    setSearchError("");
+
+  } catch (error) {
+    console.error("Tracking error:", error);
+    setSearchError("Unable to connect to RailPulse AI server.");
+  }
+};
 
   // Search button
   const handleTrackTrain = async () => {
