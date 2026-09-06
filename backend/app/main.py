@@ -46,7 +46,8 @@ train_routes = {
             "Secunderabad",
             "Bengaluru"
         ],
-        "scheduled_minutes": 6 * 60 + 30
+        "departure_minutes": 6 * 60 + 30,
+        "scheduled_minutes": 18 * 60 + 30
     },
 
     "12628": {
@@ -61,8 +62,10 @@ train_routes = {
             "Agra",
             "New Delhi"
         ],
-        "scheduled_minutes": 8 * 60 + 15
+        "departure_minutes": 8 * 60,
+        "scheduled_minutes": 20 * 60 + 15
     },
+
     "12850": {
         "name": "Alternative Express",
         "source": "Bengaluru",
@@ -74,8 +77,9 @@ train_routes = {
             "Bhopal",
             "Agra",
             "New Delhi"
-    ],
-    "scheduled_minutes": 9 * 60 + 0
+        ],
+        "departure_minutes": 8 * 60 + 30,
+        "scheduled_minutes": 20 * 60
     },
 
     "22692": {
@@ -89,9 +93,10 @@ train_routes = {
             "Bhopal",
             "Agra",
             "New Delhi"
-    ],
-    "scheduled_minutes": 9 * 60 + 30
-},
+        ],
+        "departure_minutes": 9 * 60,
+        "scheduled_minutes": 21 * 60
+    },
 
     "12007": {
         "name": "Shatabdi Express",
@@ -104,7 +109,8 @@ train_routes = {
             "Mandya",
             "Mysuru"
         ],
-        "scheduled_minutes": 7 * 60 + 45
+        "departure_minutes": 7 * 60 + 45,
+        "scheduled_minutes": 14 * 60 + 30
     },
 
     "12008": {
@@ -118,21 +124,24 @@ train_routes = {
             "Katpadi",
             "Chennai"
         ],
-        "scheduled_minutes": 6 * 60 + 10
+        "departure_minutes": 6 * 60 + 10,
+        "scheduled_minutes": 13 * 60 + 45
     },
+
     "12009": {
-    "name": "Demo Shatabdi Express",
-    "source": "Mysuru",
-    "destination": "Chennai",
-    "stations": [
-        "Mysuru",
-        "Mandya",
-        "Bengaluru",
-        "Katpadi",
-        "Chennai"
-    ],
-    "scheduled_minutes": 6 * 60 + 30
-},
+        "name": "Demo Shatabdi Express",
+        "source": "Mysuru",
+        "destination": "Chennai",
+        "stations": [
+            "Mysuru",
+            "Mandya",
+            "Bengaluru",
+            "Katpadi",
+            "Chennai"
+        ],
+        "departure_minutes": 6 * 60 + 30,
+        "scheduled_minutes": 13 * 60 + 30
+    },
 
     "12649": {
         "name": "Karnataka Sampark Kranti",
@@ -146,7 +155,8 @@ train_routes = {
             "Agra",
             "Hazrat Nizamuddin"
         ],
-        "scheduled_minutes": 9 * 60 + 30
+        "departure_minutes": 9 * 60 + 30,
+        "scheduled_minutes": 22 * 60
     },
 
     "12650": {
@@ -161,7 +171,8 @@ train_routes = {
             "Dharwad",
             "Yeshwanthpur"
         ],
-        "scheduled_minutes": 10 * 60 + 15
+        "departure_minutes": 10 * 60 + 15,
+        "scheduled_minutes": 23 * 60
     },
 
     "16515": {
@@ -176,7 +187,8 @@ train_routes = {
             "Mangaluru",
             "Karwar"
         ],
-        "scheduled_minutes": 8 * 60 + 45
+        "departure_minutes": 8 * 60 + 45,
+        "scheduled_minutes": 18 * 60 + 30
     },
 
     "16516": {
@@ -191,22 +203,25 @@ train_routes = {
             "Tumakuru",
             "KSR Bengaluru"
         ],
-        "scheduled_minutes": 7 * 60 + 20
+        "departure_minutes": 7 * 60 + 20,
+        "scheduled_minutes": 17 * 60
     },
+
     "16517": {
-    "name": "Demo Karwar Express",
-    "source": "Karwar",
-    "destination": "KSR Bengaluru",
-    "stations": [
-        "Karwar",
-        "Mangaluru",
-        "Shivamogga",
-        "Arsikere",
-        "Tumakuru",
-        "KSR Bengaluru"
-    ],
-    "scheduled_minutes": 7 * 60 + 40
-},
+        "name": "Demo Karwar Express",
+        "source": "Karwar",
+        "destination": "KSR Bengaluru",
+        "stations": [
+            "Karwar",
+            "Mangaluru",
+            "Shivamogga",
+            "Arsikere",
+            "Tumakuru",
+            "KSR Bengaluru"
+        ],
+        "departure_minutes": 7 * 60 + 40,
+        "scheduled_minutes": 16 * 60 + 30
+    },
 
     "16525": {
         "name": "Kanyakumari Express",
@@ -220,7 +235,8 @@ train_routes = {
             "Madurai",
             "Kanyakumari"
         ],
-        "scheduled_minutes": 9 * 60 + 10
+        "departure_minutes": 9 * 60 + 10,
+        "scheduled_minutes": 21 * 60
     },
 
     "16526": {
@@ -235,7 +251,8 @@ train_routes = {
             "Salem",
             "KSR Bengaluru"
         ],
-        "scheduled_minutes": 8 * 60 + 40
+        "departure_minutes": 8 * 60 + 40,
+        "scheduled_minutes": 20 * 60
     }
 }
 # --------------------------------------------------
@@ -601,6 +618,11 @@ def get_eta(train_number: str = "12627"):
                         "train": f"{number} {alternative['name']}",
                         "source": alternative["source"],
                         "destination": alternative["destination"],
+                        "departure_time": (
+    f"{(alternative['departure_minutes'] // 60) % 12 or 12:02d}:"
+    f"{alternative['departure_minutes'] % 60:02d} "
+    f"{'AM' if alternative['departure_minutes'] // 60 < 12 else 'PM'}"
+),
 
                     # Same scheduled time as main train
                     "scheduled_arrival": (
@@ -618,6 +640,24 @@ def get_eta(train_number: str = "12627"):
 
                     "delay_minutes": alternative_delay
                 })
+                    # --------------------------------------------------
+# Departure Time
+# --------------------------------------------------
+
+    # --------------------------------------------------
+# Scheduled Departure Time
+# --------------------------------------------------
+
+    departure_minutes = train["departure_minutes"]
+
+    departure_hours = departure_minutes // 60
+    departure_min = departure_minutes % 60
+
+    departure_time = (
+    f"{departure_hours % 12 or 12:02d}:"
+    f"{departure_min:02d} "
+    f"{'AM' if departure_hours < 12 else 'PM'}"
+)
     return {
         "train_number": train_number,
 
@@ -626,6 +666,7 @@ def get_eta(train_number: str = "12627"):
         "source": train["source"],
 
         "destination": train["destination"],
+        "departure_time": departure_time,
         "alternatives": alternatives,
 
         "stations": train["stations"],

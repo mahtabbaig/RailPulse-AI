@@ -51,7 +51,7 @@ function Navigation() {
             to="/ai-prediction"
             className="rounded-lg px-4 py-2 text-sm text-[#8FA3C0] transition hover:bg-[#101F35] hover:text-[#2FE0C7]"
           >
-            AI Prediction
+            ETA Intelligence
           </Link>
 
           <Link

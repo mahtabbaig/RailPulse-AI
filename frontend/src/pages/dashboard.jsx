@@ -119,7 +119,7 @@ export default function Dashboard() {
 </div>
 
       {/* Main stats */}
-      <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
 
         <div className="rounded-xl border border-[#16233A] bg-[#0B1526] p-5">
           <TrainFront className="w-5 h-5 text-[#2FE0C7]" />
@@ -145,6 +145,30 @@ export default function Dashboard() {
             {eta?.speed_kmph ?? "--"} km/h
           </p>
         </div>
+        {/* Scheduled Departure */}
+<div className="rounded-xl border border-[#16233A] bg-[#0B1526] p-5">
+  <Clock className="w-5 h-5 text-[#2FE0C7]" />
+
+  <p className="mt-3 text-xs text-[#5C6E88]">
+    SCHEDULED DEPARTURE
+  </p>
+
+  <p className="mt-1 text-2xl font-semibold">
+    {eta?.departure_time || "--"}
+  </p>
+</div>
+{/* Scheduled Arrival */}
+<div className="rounded-xl border border-[#16233A] bg-[#0B1526] p-5">
+  <Clock className="w-5 h-5 text-[#2FE0C7]" />
+
+  <p className="mt-3 text-xs text-[#5C6E88]">
+    SCHEDULED ARRIVAL
+  </p>
+
+  <p className="mt-1 text-2xl font-semibold">
+    {eta?.scheduled_arrival || "--"}
+  </p>
+</div>
 
         <div className="rounded-xl border border-[#16233A] bg-[#0B1526] p-5">
           <Clock className="w-5 h-5 text-[#2FE0C7]" />
@@ -300,7 +324,7 @@ export default function Dashboard() {
   <div className="rounded-lg border border-[#2FE0C7]/30 bg-[#2FE0C7]/5 p-4">
 
     <p className="text-xs tracking-wider text-[#5C6E88]">
-      CURRENT STATION
+      LAST PASSED STATION
     </p>
 
     <p className="mt-2 text-lg font-semibold text-[#E8EEF7]">

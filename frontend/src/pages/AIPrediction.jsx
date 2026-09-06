@@ -79,7 +79,7 @@ export default function AIPrediction() {
         <BrainCircuit className="w-6 h-6 text-[#2FE0C7]" />
 
         <h1 className="text-3xl font-semibold">
-          AI Prediction
+          ETA Intelligence
         </h1>
       </div>
 
@@ -96,8 +96,19 @@ export default function AIPrediction() {
         <h2 className="mt-2 text-2xl font-semibold">
           {eta?.train || "Loading..."}
         </h2>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {/* Scheduled Departure */}
+<div className="rounded-lg border border-[#16233A] bg-[#101F35] p-5">
+  <Clock className="w-5 h-5 text-[#2FE0C7]" />
 
-        <div className="mt-6 grid sm:grid-cols-4 gap-4">
+  <p className="mt-3 text-xs text-[#5C6E88]">
+    SCHEDULED DEPARTURE
+  </p>
+
+  <p className="mt-1 text-2xl font-semibold">
+    {eta?.departure_time || "--"}
+  </p>
+</div>
           <div className="rounded-lg border border-[#16233A] bg-[#101F35] p-5">
   <Clock className="w-5 h-5 text-[#2FE0C7]" />
 
