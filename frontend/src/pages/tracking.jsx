@@ -234,7 +234,7 @@ const loadETA = async (trainNumber) => {
           </div>
 
           {/* Data Cards */}
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
             {/* Speed */}
             <div className="rounded-lg border border-[#16233A] bg-[#101F35] p-5">
@@ -279,20 +279,7 @@ const loadETA = async (trainNumber) => {
 
 </div>
 
-            {/* ETA */}
-            <div className="rounded-lg border border-[#16233A] bg-[#101F35] p-5">
-
-              <Clock className="w-5 h-5 text-[#2FE0C7]" />
-
-              <p className="mt-3 text-xs text-[#5C6E88]">
-                PREDICTED ARRIVAL
-              </p>
-
-              <p className="mt-1 text-2xl font-semibold text-[#2FE0C7]">
-                {eta.predicted_arrival}
-              </p>
-
-            </div>
+     
 
             {/* Progress */}
             <div className="rounded-lg border border-[#16233A] bg-[#101F35] p-5">
