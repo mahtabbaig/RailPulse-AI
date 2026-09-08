@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { getETA } from "../services/api";
+import TrainMap from "../components/TrainMap";
 import {
   TrainFront,
   MapPinned,
@@ -18,6 +19,20 @@ export default function Tracking() {
 });
   const [searchError, setSearchError] = useState("");
   const [lastUpdated, setLastUpdated] = useState(null);
+  const announcedNextStation = useRef(null);
+  const previousStation = useRef(null);
+  const speak = (message) => {
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(message);
+
+    speech.rate = 0.9;
+    speech.pitch = 1;
+
+    window.speechSynthesis.speak(speech);
+  }
+};
 
   // Load train data
   // Load train data
@@ -76,7 +91,7 @@ const loadETA = async (trainNumber) => {
       setSearchError("Train not found. Please enter a valid train number.");
       return;
     }
-
+    console.log("TRAIN DATA:", data);
     setEta(data);
     setLastUpdated(new Date().toLocaleTimeString());
     setSearchError("");
@@ -118,6 +133,44 @@ const loadETA = async (trainNumber) => {
 
   return () => clearInterval(interval);
 }, [selectedTrain]);
+useEffect(() => {
+  if (!eta) return;
+
+  // First time loading the train
+  if (previousStation.current === null) {
+    previousStation.current = eta.current_station;
+  }
+
+  // Detect station reached
+  if (
+    previousStation.current &&
+    previousStation.current !== eta.current_station
+  ) {
+    speak(
+      `Attention please. ${eta.current_station} station has been reached.`
+    );
+
+    previousStation.current = eta.current_station;
+
+    // Reset next station announcement
+    announcedNextStation.current = null;
+
+    return;
+  }
+  // Announce when train is 5 minutes or less from next station
+if (
+  eta.next_station !== "Destination Reached" &&
+  eta.next_station_minutes <= 5 &&
+  announcedNextStation.current !== eta.next_station
+) {
+  speak(
+    `Attention please. The next station is ${eta.next_station}. The train will reach ${eta.next_station} in approximately ${eta.next_station_minutes} minutes.`
+  );
+
+  announcedNextStation.current = eta.next_station;
+}
+
+}, [eta]);
 
   return (
     <div className="min-h-screen bg-[#060B14] text-[#E8EEF7] px-6 sm:px-10 py-10">
@@ -298,83 +351,31 @@ const loadETA = async (trainNumber) => {
 
           </div>
 
-          {/* Live Route */}
+          {/* Live Train Location Map */}
 <div className="mt-8">
 
-  {/* Header */}
-  <div className="flex justify-between items-center">
+  <div className="flex justify-between items-center mb-4">
+
     <p className="text-xs tracking-wider text-[#5EEAD4]">
-      LIVE ROUTE
+      LIVE TRAIN LOCATION
     </p>
 
-    <p className="text-xs text-[#2FE0C7]">
-      {eta.status}
-    </p>
-  </div>
+    <div className="flex items-center gap-2">
 
-  {/* Route Container */}
-  <div className="relative mt-12 mb-16 h-6">
+      <span className="h-2 w-2 rounded-full bg-[#2FE0C7] animate-pulse" />
 
-    {/* Background Track */}
-    <div className="absolute top-1/2 left-0 right-0 h-2 -translate-y-1/2 rounded-full bg-[#16233A]" />
+      <p className="text-xs text-[#2FE0C7]">
+        {eta.status}
+      </p>
 
-    {/* Completed Track */}
-    <div
-      className="absolute top-1/2 left-0 h-2 -translate-y-1/2 rounded-full bg-[#2FE0C7] transition-all duration-1000"
-      style={{
-        width: `${eta.progress_percent}%`,
-      }}
-    />
-
-    {/* Station Nodes */}
-    {eta.stations?.map((station, index) => {
-
-      const position =
-        eta.stations.length === 1
-          ? 0
-          : (index / (eta.stations.length - 1)) * 100;
-
-      return (
-        <div
-          key={station}
-          className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
-          style={{
-            left: `${position}%`,
-          }}
-        >
-          <div
-            className={`h-4 w-4 rounded-full border-2 ${
-              position <= eta.progress_percent
-                ? "border-[#2FE0C7] bg-[#060B14]"
-                : "border-[#3A5170] bg-[#0B1526]"
-            }`}
-          />
-
-          {/* Station Name */}
-          <span className="absolute top-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] text-[#5C6E88]">
-            {station}
-          </span>
-        </div>
-      );
-    })}
-
-    {/* Moving Train */}
-    <div
-      className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-1000"
-      style={{
-        left: `${eta.progress_percent}%`,
-      }}
-    >
-      <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#2FE0C7] bg-[#060B14] shadow-[0_0_20px_rgba(47,224,199,0.45)]">
-
-        <TrainFront className="h-5 w-5 text-[#2FE0C7]" />
-
-        <span className="absolute inset-0 rounded-full border border-[#2FE0C7] animate-ping opacity-30" />
-
-      </div>
     </div>
 
   </div>
+
+  <TrainMap
+  progress={eta.progress_percent}
+  stations={eta.stations}
+/>
 
 </div>
             {/* Current Station and Next Station */}
@@ -418,8 +419,8 @@ const loadETA = async (trainNumber) => {
     </p>
 
     <p className="mt-1 text-xs text-[#5C6E88]">
-      Upcoming station
-    </p>
+  Estimated arrival in {eta.next_station_minutes ?? "--"} minutes
+</p>
 
   </div>
 

@@ -519,6 +519,29 @@ def get_eta(train_number: str = "12627"):
       next_station = stations[station_index + 1]
     else:
       next_station = "Destination Reached"
+    # --------------------------------------------------
+# Estimated Time to Next Station (Demo Simulation)
+# --------------------------------------------------
+
+    if station_index < len(stations) - 1:
+
+    # Each station section represents equal route progress
+        section_size = 100 / (len(stations) - 1)
+
+    # Progress position of the next station
+        next_station_progress = (station_index + 1) * section_size
+
+    # Remaining progress to next station
+        remaining_progress = next_station_progress - progress_percent
+
+    # Convert progress into simulated minutes
+        next_station_minutes = max(
+        0,
+        round(remaining_progress * 0.8)
+    )
+
+    else:
+        next_station_minutes = 0  
 
     scheduled_minutes = train["scheduled_minutes"]
 
@@ -673,6 +696,8 @@ def get_eta(train_number: str = "12627"):
         "current_station": current_station,
 
         "next_station": next_station,
+
+        "next_station_minutes": next_station_minutes,
 
         "scheduled_arrival": (
             f"{(scheduled_minutes // 60) % 12 or 12:02d}:"
