@@ -436,7 +436,7 @@ export default function Dashboard() {
 
       {/* Disclaimer */}
       <p className="mt-6 text-xs text-[#5C6E88]">
-        Dashboard data is simulated for the SIH 2026 prototype and does not
+        Dashboard data is simulated  and does not
         represent live Indian Railways data.
       </p>
 

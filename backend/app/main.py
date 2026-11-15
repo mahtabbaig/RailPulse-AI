@@ -1,8 +1,13 @@
 import random
 import time
+import json
+import re
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
+
+from app.chat_service import generate_chat_response
 
 
 app = FastAPI(
@@ -546,6 +551,7 @@ def get_eta(train_number: str = "12627"):
     scheduled_minutes = train["scheduled_minutes"]
 
     # --------------------------------------------------
+    
     # Predicted arrival
     # --------------------------------------------------
 
@@ -722,4 +728,82 @@ def get_eta(train_number: str = "12627"):
         "status": status,
 
         "risk": risk
+    }
+# --------------------------------------------------
+# RailPulse AI Chatbot API
+# --------------------------------------------------
+
+class ChatRequest(BaseModel):
+    message: str
+    history: list[dict] = Field(default_factory=list)
+
+
+@app.post("/api/chat")
+def chat_with_railpulse(request: ChatRequest):
+
+    message = request.message.strip()
+
+    if not message:
+        return {"reply": "Please enter a question."}
+
+    # Find train numbers in the current question
+    train_numbers = re.findall(r"\b\d{5}\b", message)
+
+    # Check conversation history for train numbers
+    if not train_numbers:
+        for item in reversed(request.history):
+            content = item.get("content", "")
+            found = re.findall(r"\b\d{5}\b", content)
+
+            if found:
+                train_numbers = found
+                break
+
+    # Remove duplicate train numbers
+    train_numbers = list(dict.fromkeys(train_numbers))
+
+    train_context = ""
+
+    # Retrieve information using the existing ETA function
+    for number in train_numbers:
+
+        if number in train_routes:
+
+            train_data = get_eta(number)
+
+            train_context += (
+                f"\nTRAIN INFORMATION:\n"
+                f"{json.dumps(train_data, indent=2)}\n"
+            )
+
+    # If no specific train was mentioned,
+    # provide the list of supported trains
+    if not train_context:
+
+        supported_trains = []
+
+        for number, train in train_routes.items():
+
+            supported_trains.append({
+                "train_number": number,
+                "train_name": train["name"],
+                "source": train["source"],
+                "destination": train["destination"]
+            })
+
+        train_context = (
+            "SUPPORTED TRAINS:\n"
+            + json.dumps(supported_trains, indent=2)
+        )
+
+    # Generate Gemini response
+    reply = generate_chat_response(
+        message=message,
+        train_context=train_context,
+        history=request.history
+    )
+
+    return {
+        "reply": reply,
+        "mode": "SIMULATED DEMO DATA"
     }

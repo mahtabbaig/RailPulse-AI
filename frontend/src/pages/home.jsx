@@ -213,7 +213,7 @@ const loadETA = async () => {
     {/* LEFT — Existing Hero Content */} 
     <div className="max-w-3xl"> 
       <span className="font-mono-data text-xs tracking-[0.25em] text-[#5EEAD4]"> 
-        SIH 2026 PROTOTYPE 
+        
       </span> 
  
       <h1 className="font-display mt-4 text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-tight"> 
@@ -593,7 +593,7 @@ onClick={() => navigate("/tracking")}
           ))} 
         </div> 
         <p className="mt-4 text-xs text-[#5C6E88]"> 
-          Figures shown are simulated for this SIH 2026 prototype and are not 
+          Figures shown are simulated and are not 
           live Indian Railways data. 
         </p> 
       </section> 
@@ -612,7 +612,7 @@ onClick={() => navigate("/tracking")}
     </h2> 
  
     <p className="mt-2 text-sm text-[#8FA3C0]"> 
-      Simulated network conditions for the SIH 2026 prototype. 
+      Simulated network conditions . 
     </p> 
  
     <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4"> 
@@ -817,7 +817,7 @@ onClick={() => navigate("/tracking")}
       </section> 
  
       <footer className="px-6 sm:px-10 py-6 border-t border-[#16233A] flex flex-wrap items-center justify-between gap-2 text-xs text-[#5C6E88]"> 
-        <span className="font-mono-data">RAILPULSE AI · SIH 2026 PROTOTYPE</span> 
+        <span className="font-mono-data">RAILPULSE AI </span> 
         <span className="flex items-center gap-1.5"> 
           <Radio className="w-3.5 h-3.5" /> 
           Demo/Simulated Data 

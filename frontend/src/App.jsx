@@ -4,6 +4,7 @@ import Home from "./pages/home";
 import Tracking from "./pages/tracking";
 import AIPrediction from "./pages/AIPrediction";
 import Dashboard from "./pages/dashboard";
+import RailPulseChatbot from "./components/RailPulseChatbot";
 
 function Navigation() {
   return (
@@ -86,6 +87,7 @@ function App() {
         <Route path="/ai-prediction" element={<AIPrediction />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
+            <RailPulseChatbot />
 
     </BrowserRouter>
   );
