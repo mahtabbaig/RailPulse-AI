@@ -1,494 +1,543 @@
 # 🚆 RailPulse AI
 
-## Dynamic Train ETA Intelligence Platform
+### Dynamic Train ETA Intelligence Platform
+
+**Smarter Predictions. Better Journeys.**
 
 RailPulse AI is an intelligent train tracking and ETA prediction platform designed to provide passengers with smarter, dynamic, and more informative train journey updates.
 
-The platform combines **train tracking, dynamic ETA prediction, delay analysis, live route visualization, and voice assistance** to improve the passenger experience.
+The platform combines **train tracking, dynamic ETA prediction, delay analysis, interactive route visualization, voice assistance, and an AI-powered passenger chatbot** to improve the railway passenger experience.
 
-Developed as a prototype for **Smart India Hackathon (SIH) 2026**.
+It also uses **Docker containerization and GitHub Actions CI/CD automation** to simplify application deployment and development workflows.
 
 ---
 
-# 🚀 Problem Statement
+## 🚀 Problem Statement
 
 Passengers often face uncertainty when trains are delayed or when arrival information does not clearly explain the current situation.
 
-Traditional train tracking systems may show basic information such as train status and expected arrival time, but passengers may still struggle to understand:
+Passengers may struggle to understand:
 
-* 🚆 Where exactly is the train?
-* ⏱️ When is the train expected to arrive?
-* ⚠️ How serious is the delay?
-* 📍 How much of the journey is completed?
-* 🗺️ Where is the train on the route?
-* 🎤 How can passengers quickly access information without navigating multiple screens?
+- 🚆 Where is the train?
+- ⏱️ When is the train expected to arrive?
+- ⚠️ How serious is the delay?
+- 📍 How much of the journey is completed?
+- 🗺️ Where is the train on its route?
+- 🎤 How can passengers quickly access information?
 
-RailPulse AI aims to address these challenges by providing a **smart, interactive, and dynamic train intelligence platform**.
-
----
-
-# 💡 Our Solution
-
-RailPulse AI collects and analyzes train-related information such as:
-
-* 🚆 Train speed
-* 📍 Train progress
-* ⏱️ Estimated delay
-* 🚉 Route and station information
-* 📊 Journey progress
-
-Using this information, the system generates a dynamic ETA and displays important train information in an easy-to-understand interface.
-
-The platform also includes an interactive map and voice assistant to make train information more accessible and user-friendly.
+RailPulse AI aims to address these challenges through a smart, interactive, and dynamic train intelligence platform.
 
 ---
 
-# ✨ Key Features
+## 💡 Our Solution
 
-## 🚆 Train Tracking
+RailPulse AI processes train-related information such as:
 
-Users can search and track trains using the train number.
+- Train speed
+- Train progress
+- Estimated delay
+- Route and station information
+- Journey progress
+
+Using this information, the system generates dynamic ETA updates and displays important train information through an easy-to-understand interface.
+
+The platform also includes an interactive map, voice assistant, and AI chatbot to make train information more accessible.
+
+---
+
+## ✨ Key Features
+
+### 🚆 1. Train Tracking
+
+Users can search and track trains using their train number.
 
 The system displays:
 
-* Train ID
-* Train status
-* Current journey progress
-* Upcoming stations
-* Estimated arrival time
+- Train number and status
+- Current journey progress
+- Upcoming stations
+- Estimated arrival time
 
----
+### ⏱️ 2. Dynamic ETA Prediction
 
-## ⏱️ Dynamic ETA Prediction
+RailPulse AI generates estimated arrival times based on available train information.
 
-RailPulse AI generates a dynamic estimated arrival time based on available train data.
+The system considers:
 
-The system considers factors such as:
+- Train speed
+- Journey progress
+- Estimated delays
 
-* Train speed
-* Journey progress
-* Estimated delays
+### ⚠️ 3. Delay Prediction & Risk Analysis
 
----
+The platform provides information about possible train delays.
 
-## ⚠️ Delay Prediction & Risk Analysis
+Users can understand whether a train is:
 
-The platform analyzes train conditions and provides information about possible delays.
+- 🟢 On Time
+- 🟡 Slightly Delayed
+- 🔴 Delayed
 
-Users can understand whether the train is:
+### 🗺️ 4. Interactive Train Map
 
-* 🟢 On Time
-* 🟡 Slightly Delayed
-* 🔴 Delayed
-
----
-
-## 🗺️ Live Train Map
-
-The new Live Train Map feature provides a visual representation of the train journey.
+The train map provides a visual representation of the train journey.
 
 Users can:
 
-* View the train route
-* See train movement visually
-* Understand the journey progress
-* View important stations
-* Get a better understanding of the train's current location
+- View the train route
+- See train movement visually
+- Understand journey progress
+- View important stations
 
-This makes train tracking more interactive and easier to understand.
+### 🎤 5. Voice Assistant
 
----
+The voice assistant allows users to interact with the platform using voice commands.
 
-## 🎤 Voice Assistant
+Example interactions:
 
-RailPulse AI includes a voice assistant that allows users to interact with the platform using voice commands.
+- Ask for train status
+- Ask for ETA
+- Ask about delays
+- Access train-related information using voice
 
-The voice assistant can help users access train-related information more conveniently.
+### 🤖 6. AI-Powered Passenger Chatbot
 
-Example use cases:
+RailPulse AI includes a Gemini-powered chatbot that helps passengers understand train-related information.
 
-* 🎤 Ask for train status
-* 🎤 Ask for ETA
-* 🎤 Ask about delays
-* 🎤 Get train-related information without manually navigating the application
+The chatbot can answer passenger questions using information provided by the application.
 
-This feature improves accessibility and provides a more modern user experience.
+It makes train information easier to understand through conversational interaction.
 
----
+### 🧠 7. AI Prediction Engine
 
-## 🤖 AI Prediction Engine
+The platform includes an AI prediction interface demonstrating how intelligent prediction can improve railway ETA estimation.
 
-The platform includes an AI Prediction Engine interface that demonstrates how intelligent prediction can be used to improve railway ETA estimation.
+Currently, the application operates in **Demo Mode using simulated train data**.
 
-Currently, the project operates in **Demo Mode using simulated train data**.
+Future versions can integrate machine learning models and real-time railway information.
 
-Future versions can integrate:
+### 📊 8. Train Progress Monitoring
 
-* Machine Learning models
-* Historical railway data
-* Real-time GPS data
-* Weather data
-* Railway traffic information
-* Station congestion data
+Users can monitor their journey through:
 
----
+- Progress percentage
+- Route visualization
+- Station indicators
+- ETA updates
 
-## 📊 Train Progress Monitoring
+### 🔄 9. Auto Refresh
 
-Users can visually monitor the train journey using:
+Train information automatically refreshes every 10 seconds to simulate real-time monitoring.
 
-* Progress percentage
-* Route visualization
-* Station indicators
-* ETA updates
+### 📈 10. ETA History Tracking
 
----
+The system tracks ETA changes over time to visualize how predicted arrival times change.
 
-## 🔄 Auto Refresh
+### 🌙 11. Modern User Interface
 
-Train information automatically refreshes every **10 seconds** to simulate real-time monitoring.
+- Modern dark-themed interface
+- Responsive design
+- Interactive animations
+- Visual train tracking
+- User-friendly navigation
 
 ---
 
-## 📈 ETA History Tracking
+## 🛠️ Technology Stack
 
-The system tracks ETA changes over time to help visualize how the predicted arrival time changes.
+### Frontend
 
----
+- React
+- Vite
+- Tailwind CSS
+- Lucide React
+- Leaflet Map Integration
+- Web Speech API
 
-## 🌙 Modern User Interface
+### Backend
 
-RailPulse AI provides:
+- Python
+- FastAPI
+- Uvicorn
+- Google Gemini API
 
-* Modern dark-themed UI
-* Responsive design
-* Interactive animations
-* Visual train tracking
-* User-friendly navigation
+### DevOps & Deployment
 
----
-
-# 🛠️ Tech Stack
-
-## Frontend
-
-* ⚛️ React
-* ⚡ Vite
-* 🎨 Tailwind CSS
-* 🎯 Lucide React
-* 🗺️ Map Integration
-* 🎤 Web Speech API / Voice Recognition
-
-## Backend
-
-* 🐍 Python
-* ⚡ FastAPI
-* 🚀 Uvicorn
+- Docker
+- Docker Compose
+- Nginx
+- GitHub Actions
+- Docker Hub
+- Git & GitHub
 
 ---
 
-# 📂 Project Structure
+## 🏗️ System Architecture
 
 ```text
-RailPulse-AI/
-│
-├── frontend/
-│   │
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── LiveMap
-│   │   │   ├── VoiceAssistant
-│   │   │   └── Other Components
-│   │   │
-│   │   ├── pages/
-│   │   │   ├── Home
-│   │   │   ├── Tracking
-│   │   │   ├── AI Prediction
-│   │   │   └── Dashboard
-│   │   │
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   │
-│   └── package.json
-│
-├── backend/
-│   │
-│   ├── app/
-│   │   └── main.py
-│   │
-│   └── requirements.txt
-│
-├── README.md
-└── .gitignore
+             USER
+               |
+               v
+        REACT FRONTEND
+               |
+               v
+         NGINX SERVER
+               |
+               v
+        FASTAPI BACKEND
+               |
+               v
+       TRAIN DATA PROCESSING
+               |
+       +-------+--------+
+       |       |        |
+       v       v        v
+      ETA    DELAY    JOURNEY
+   PREDICTION ANALYSIS PROGRESS
+       |       |        |
+       +-------+--------+
+               |
+               v
+       TRAIN INFORMATION
+               |
+       +-------+--------+
+       |       |        |
+       v       v        v
+      MAP    VOICE     AI CHATBOT
+   TRACKING ASSISTANT  (GEMINI)
 ```
 
 ---
 
-# 🔌 API Endpoints
+## 🐳 Docker Integration
 
-## 🟢 Health Check
+RailPulse AI uses Docker to containerize its frontend and backend separately.
 
-```text
-GET /api/health
-```
+### Docker Components
 
-This endpoint checks whether the RailPulse AI backend is running properly.
+| Component | Purpose |
+|---|---|
+| Backend Dockerfile | Containerizes FastAPI backend |
+| Frontend Dockerfile | Builds React frontend and serves it using Nginx |
+| Docker Compose | Runs frontend and backend together |
+| Nginx | Serves frontend and forwards API requests to backend |
 
----
+### Run Using Docker Compose
 
-## 🚆 Get Train ETA
-
-```text
-GET /api/eta?train_number=12627
-```
-
-Example Train Numbers:
-
-* 🚆 12627
-* 🚆 12628
-* 🚆 12007
-
----
-
-# ⚙️ How to Run the Project
-
-## 1️⃣ Clone the Repository
+**1. Clone the repository**
 
 ```bash
-git clone YOUR_REPOSITORY_URL
+git clone https://github.com/mahtabbaig/RailPulse-AI.git
 ```
 
-Move into the project folder:
+**2. Navigate into the project**
 
 ```bash
 cd RailPulse-AI
 ```
 
+**3. Configure the Gemini API key**
+
+Create a `.env` file inside the `backend` folder.
+
+Add:
+
+```env
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+Replace the placeholder with your own Gemini API key.
+
+**4. Build and start the containers**
+
+```bash
+docker compose up --build
+```
+
+**5. Open the application**
+
+Frontend:
+
+```text
+http://localhost:5173
+```
+
+Backend API:
+
+```text
+http://localhost:8000
+```
+
+API Documentation:
+
+```text
+http://localhost:8000/docs
+```
+
+To stop the containers:
+
+```bash
+docker compose down
+```
+
 ---
 
-# 2️⃣ Run the Backend
+## 🔄 CI/CD Integration Using GitHub Actions
 
-Move into the backend folder:
+RailPulse AI uses **GitHub Actions** to automate Continuous Integration and Continuous Delivery.
+
+Whenever code is pushed to the `main` branch, the workflow automatically starts.
+
+### CI – Continuous Integration
+
+The CI pipeline performs:
+
+1. Checks out the GitHub repository.
+2. Sets up Python.
+3. Installs backend dependencies.
+4. Validates backend Python code.
+5. Sets up Node.js.
+6. Installs frontend dependencies.
+7. Builds the React application.
+
+### CD – Continuous Delivery
+
+After successful CI validation, the CD pipeline:
+
+1. Sets up Docker Buildx.
+2. Logs into Docker Hub using GitHub Secrets.
+3. Builds the backend Docker image.
+4. Builds the frontend Docker image.
+5. Pushes both images to Docker Hub.
+
+### CI/CD Workflow
+
+```text
+       Developer
+           |
+           v
+     Modify Source Code
+           |
+           v
+      Push to GitHub
+           |
+           v
+     GitHub Actions
+           |
+           v
+   CI - Build & Validate
+           |
+           v
+      CI Successful?
+           |
+           v
+   CD - Build Docker Images
+           |
+           v
+     Push to Docker Hub
+           |
+           v
+     Pipeline Completed
+```
+
+### Docker Hub Images
+
+**Backend Image**
+
+https://hub.docker.com/r/mahtabazeezbaig/railpulse-backend
+
+**Frontend Image**
+
+https://hub.docker.com/r/mahtabazeezbaig/railpulse-frontend
+
+### GitHub Actions Workflow
+
+The CI/CD configuration is available at:
+
+```text
+.github/workflows/ci-cd.yml
+```
+
+GitHub Actions automatically validates the application and publishes updated Docker images after successful CI execution.
+
+---
+
+## 📂 Project Structure
+
+```text
+RailPulse-AI/
+│
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml
+│
+├── backend/
+│   ├── app/
+│   │   └── main.py
+│   ├── Dockerfile
+│   ├── .dockerignore
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   ├── .dockerignore
+│   └── package.json
+│
+├── docker-compose.yml
+├── .gitignore
+└── README.md
+```
+
+---
+
+## 🔌 API Endpoints
+
+### Health Check
+
+```http
+GET /api/health
+```
+
+Checks whether the backend is running properly.
+
+### Get Train ETA
+
+```http
+GET /api/eta?train_number=12627
+```
+
+Retrieves train ETA information.
+
+Example train numbers:
+
+- 12627
+- 12628
+- 12007
+
+### AI Chatbot
+
+```http
+POST /api/chat
+```
+
+Handles passenger questions through the Gemini-powered chatbot.
+
+---
+
+## ⚙️ Run Locally Without Docker
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/mahtabbaig/RailPulse-AI.git
+cd RailPulse-AI
+```
+
+### 2. Run the Backend
 
 ```bash
 cd backend
-```
-
-Install dependencies:
-
-```bash
 pip install -r requirements.txt
 ```
 
-Start the FastAPI server:
+Activate your virtual environment if you are using one.
+
+Configure the Gemini API key in `backend/.env`.
+
+Start the backend:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-The backend will run at:
+Backend:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-API documentation is available at:
+### 3. Run the Frontend
 
-```text
-http://127.0.0.1:8000/docs
-```
-
----
-
-# 3️⃣ Run the Frontend
-
-Open another terminal.
-
-Move into the frontend folder:
+Open another terminal:
 
 ```bash
 cd frontend
-```
-
-Install dependencies:
-
-```bash
 npm install
-```
-
-Start the React application:
-
-```bash
 npm run dev
 ```
 
-Open the application using the local URL shown in the terminal.
+Open the local URL displayed in the terminal.
 
 ---
 
-# 🔄 How RailPulse AI Works
-
-```text
-User
-  │
-  ▼
-Enter Train Number
-  │
-  ▼
-React Frontend
-  │
-  ▼
-FastAPI Backend
-  │
-  ▼
-Train Data Processing
-  │
-  ├── Train Speed
-  ├── Journey Progress
-  └── Estimated Delay
-  │
-  ▼
-Dynamic ETA Prediction
-  │
-  ├── Train Tracking
-  ├── Delay Status
-  ├── Live Route Map
-  └── Voice Assistant
-  │
-  ▼
-User Receives Smart Train Information
-```
-
----
-
-# 🤖 AI Prediction Logic
+## 🤖 AI Prediction Logic
 
 Currently, RailPulse AI operates in **Demo Mode using simulated train data**.
 
 The system analyzes available parameters such as:
 
-* Train speed
-* Journey progress
-* Estimated delay
+- Train speed
+- Journey progress
+- Estimated delay
 
-Based on these factors, the system generates a dynamic ETA and train status.
+Based on these factors, it generates dynamic ETA and train status information.
 
 ### Current Status
 
-⚠️ The current prototype uses simulated data for demonstration purposes.
+⚠️ The current prototype uses simulated train data for demonstration purposes and is not connected to a live Indian Railways tracking feed.
 
 ### Future AI Implementation
 
-The prediction system can be enhanced using Machine Learning algorithms trained on:
+The prediction system can be enhanced using machine learning algorithms trained on:
 
-* Historical train arrival data
-* Train speed patterns
-* Route information
-* Weather conditions
-* Railway traffic
-* Station congestion
-* Previous delay patterns
-
-This would allow RailPulse AI to generate more accurate ETA predictions in a real-world implementation.
+- Historical train arrival data
+- Train speed patterns
+- Route information
+- Weather conditions
+- Railway traffic
+- Station congestion
+- Previous delay patterns
 
 ---
 
-# 🗺️ Live Map Feature
+## 🔮 Future Improvements
 
-The Live Train Map provides a visual representation of the train journey.
-
-The feature is designed to help passengers quickly understand:
-
-* 📍 Train location
-* 🛤️ Route information
-* 🚉 Important stations
-* 📈 Journey progress
-* 🚆 Train movement
-
-Instead of only reading numerical data, users can visually understand where the train is on its journey.
-
----
-
-# 🎤 Voice Assistant Feature
-
-The Voice Assistant allows users to interact with RailPulse AI using voice.
-
-The goal is to make train information:
-
-* Faster to access
-* Easier to understand
-* More accessible
-* More user-friendly
-
-Users can interact with the system to quickly get information such as:
-
-```text
-"What is the train ETA?"
-
-"Show train status"
-
-"Is the train delayed?"
-
-"Where is the train?"
-```
-
-The system processes the voice input and provides relevant train information.
+- Real Machine Learning ETA prediction model
+- Real-time GPS integration
+- Real railway network integration
+- Weather-based delay prediction
+- Railway traffic analysis
+- Station congestion analysis
+- Passenger delay notifications
+- Mobile application
+- Multilingual voice assistant
+- Advanced analytics dashboard
+- Alternative train recommendations
 
 ---
 
-# 🚀 Unique Features
-
-RailPulse AI combines multiple train intelligence features in a single platform:
-
-| Feature             | Description                                |
-| ------------------- | ------------------------------------------ |
-| 🚆 Smart Tracking   | Track train information using train number |
-| ⏱️ Dynamic ETA      | Continuously updated ETA prediction        |
-| ⚠️ Delay Analysis   | Identify possible delay conditions         |
-| 🗺️ Live Train Map  | Visual route and journey tracking          |
-| 🎤 Voice Assistant  | Voice-based interaction                    |
-| 🤖 AI Prediction    | Intelligent ETA prediction concept         |
-| 📊 Journey Progress | Visual train progress monitoring           |
-| 📈 ETA History      | Track ETA changes over time                |
-| 🔄 Auto Refresh     | Updates every 10 seconds                   |
-
----
-
-# 🔮 Future Improvements
-
-* 🤖 Real Machine Learning ETA Prediction Model
-* 📡 Real-Time GPS Integration
-* 🗺️ Real Railway Network Integration
-* 🌦️ Weather-Based Delay Prediction
-* 🚦 Railway Traffic Analysis
-* 🚉 Station Congestion Analysis
-* 🔔 Passenger Delay Notifications
-* 📱 Mobile Application
-* 🌐 Multi-Language Voice Assistant
-* 📊 Advanced Analytics Dashboard
-* 🔄 Alternative Train Recommendations
-
----
-
-# 🎯 Vision
+## 🎯 Vision
 
 To build an intelligent railway information platform that provides passengers with more accurate, dynamic, accessible, and reliable train information using:
 
-* Artificial Intelligence
-* Machine Learning
-* Real-Time Data
-* Interactive Maps
-* Voice Technology
+- Artificial Intelligence
+- Machine Learning
+- Real-Time Data
+- Interactive Maps
+- Voice Technology
+- Automated DevOps Workflows
 
 ---
 
-# 👨‍💻 Developed For
-
-**Smart India Hackathon (SIH) 2026**
-
----
-
-# 🚆 RailPulse AI
+## 🚆 RailPulse AI
 
 ### Smarter Predictions. Better Journeys.
 
