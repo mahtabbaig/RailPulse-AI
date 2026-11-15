@@ -1,7 +1,7 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "/api";
 
 export async function checkBackend() {
-  const response = await fetch(`${API_URL}/`);
+  const response = await fetch(`${API_URL}/health`);
 
   if (!response.ok) {
     throw new Error("Backend is not responding");
@@ -12,7 +12,7 @@ export async function checkBackend() {
 
 export async function getETA(trainNumber) {
   const response = await fetch(
-    `${API_URL}/api/eta?train_number=${trainNumber}`
+    `${API_URL}/eta?train_number=${trainNumber}`
   );
 
   if (!response.ok) {
