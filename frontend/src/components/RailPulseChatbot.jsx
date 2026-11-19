@@ -72,7 +72,7 @@ function RailPulseChatbot() {
         {
           role: "assistant",
           content:
-            "I'm unable to connect to the RailPulse server. Please check whether the backend is running."
+            "I am Unable to connect to the RailPulse server. Please check whether the backend is running."
         }
       ]);
     } finally {
@@ -81,8 +81,8 @@ function RailPulseChatbot() {
   };
 
   const suggestions = [
-    "Check train 12627 status",
-    "Show alternative trains for 12628",
+    "Check train 12627 status??",
+    "Show alternative trains for 12628??",
     "How does RailPulse AI work?"
   ];
 
@@ -171,7 +171,7 @@ function RailPulseChatbot() {
             {loading && (
               <div className="flex justify-start">
                 <div className="rounded-xl border border-[#20344D] bg-[#101F35] px-4 py-3 text-sm text-[#2FE0C7]">
-                  RailPulse AI is thinking...
+                  RailPulse AI is Thinking...
                 </div>
               </div>
             )}
