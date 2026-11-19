@@ -5,6 +5,7 @@ import Tracking from "./pages/tracking";
 import AIPrediction from "./pages/AIPrediction";
 import Dashboard from "./pages/dashboard";
 import RailPulseChatbot from "./components/RailPulseChatbot";
+import AccessPath from "./pages/AccessPath";
 
 function Navigation() {
   return (
@@ -61,6 +62,12 @@ function Navigation() {
           >
             DASHBOARD
           </Link>
+          <Link
+  to="/accesspath"
+  className="rounded-lg px-4 py-2 text-sm text-[#8FA3C0] transition hover:bg-[#101F35] hover:text-[#2FE0C7]"
+>
+  AccessPath
+</Link>
 
         </div>
 
@@ -86,6 +93,7 @@ function App() {
         <Route path="/tracking" element={<Tracking />} />
         <Route path="/ai-prediction" element={<AIPrediction />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/accesspath" element={<AccessPath />} />
       </Routes>
             <RailPulseChatbot />
 
