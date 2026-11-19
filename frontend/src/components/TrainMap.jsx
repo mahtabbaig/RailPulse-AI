@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import L from "leaflet";
 
 
-// Train route stations
+
 const stationCoordinates = {
   "New Delhi": [28.6139, 77.2090],
   "Agra": [27.1767, 78.0081],
@@ -47,7 +47,7 @@ const stationCoordinates = {
 };
 
 
-// Create train icon
+
 const trainIcon = new L.DivIcon({
   className: "train-icon",
 
