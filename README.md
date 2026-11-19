@@ -246,7 +246,7 @@ Add:
 GEMINI_API_KEY=your_gemini_api_key
 ```
 
-Replace the placeholder with your own Gemini API key.
+Replace the placeholders with your own Gemini API key.
 
 **4. Build and start the containers**
 
