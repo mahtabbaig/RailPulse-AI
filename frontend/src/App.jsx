@@ -26,7 +26,7 @@ function Navigation() {
             </div>
 
             <div className="text-[10px] tracking-wider text-[#5C6E88]">
-              DYNAMIC ETA SYSTEM
+              DYNAMIC-ETA-SYSTEM
             </div>
           </div>
         </Link>
@@ -38,28 +38,28 @@ function Navigation() {
             to="/"
             className="rounded-lg px-4 py-2 text-sm text-[#8FA3C0] transition hover:bg-[#101F35] hover:text-[#2FE0C7]"
           >
-            Home
+            HOME
           </Link>
 
           <Link
             to="/tracking"
             className="rounded-lg px-4 py-2 text-sm text-[#8FA3C0] transition hover:bg-[#101F35] hover:text-[#2FE0C7]"
           >
-            Tracking
+            TRACKING  
           </Link>
 
           <Link
             to="/ai-prediction"
             className="rounded-lg px-4 py-2 text-sm text-[#8FA3C0] transition hover:bg-[#101F35] hover:text-[#2FE0C7]"
           >
-            ETA Intelligence
+            ETA INTELLIGENCE
           </Link>
 
           <Link
             to="/dashboard"
             className="rounded-lg px-4 py-2 text-sm text-[#8FA3C0] transition hover:bg-[#101F35] hover:text-[#2FE0C7]"
           >
-            Dashboard
+            DASHBOARD
           </Link>
 
         </div>
